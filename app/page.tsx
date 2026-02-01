@@ -1,10 +1,10 @@
 /**
- * app/page.tsx - Dashboard principal
+ * app/page.tsx - Dashboard Principal
  * 
- * Esta es la página de inicio que muestra:
- * - KPIs principales del negocio
- * - Links a los 5 reportes disponibles
+ * Muestra KPIs generales y accesos directos a los reportes.
  */
+
+export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
 import { getDashboardKPIs } from '@/lib/queries';

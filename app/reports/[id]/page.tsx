@@ -5,6 +5,8 @@
  * Cada reporte tiene su propia vista con filtros específicos.
  */
 
+export const dynamic = 'force-dynamic';
+
 import Link from 'next/link';
 import {
     getVentasPorCategoria,
@@ -428,7 +430,7 @@ async function Reporte3Usuarios({
                                 <td>{row.productos_diferentes_comprados}</td>
                                 <td>
                                     <span className={`badge ${row.tipo_cliente === 'Frecuente' ? 'badge-green' :
-                                            row.tipo_cliente === 'Ocasional' ? 'badge-yellow' : 'badge-red'
+                                        row.tipo_cliente === 'Ocasional' ? 'badge-yellow' : 'badge-red'
                                         }`}>
                                         {row.tipo_cliente}
                                     </span>
@@ -548,9 +550,9 @@ async function Reporte4OrdenesPorStatus({
                             <tr key={row.status}>
                                 <td>
                                     <span className={`badge ${row.status === 'entregado' ? 'badge-green' :
-                                            row.status === 'enviado' ? 'badge-blue' :
-                                                row.status === 'pagado' ? 'badge-purple' :
-                                                    row.status === 'pendiente' ? 'badge-yellow' : 'badge-red'
+                                        row.status === 'enviado' ? 'badge-blue' :
+                                            row.status === 'pagado' ? 'badge-purple' :
+                                                row.status === 'pendiente' ? 'badge-yellow' : 'badge-red'
                                         }`}>
                                         {row.status}
                                     </span>
