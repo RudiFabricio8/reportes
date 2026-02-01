@@ -10,7 +10,7 @@
  * - Usamos el usuario app_reader que solo puede leer VIEWS
  */
 
-import { Pool, QueryResult } from 'pg';
+import { Pool, QueryResult, QueryResultRow } from 'pg';
 
 // Creamos un pool de conexiones para reutilizar
 // El pool es más eficiente que crear una conexión por cada query
@@ -36,7 +36,7 @@ const pool = new Pool({
  * Ejemplo de uso:
  *   const result = await query('SELECT * FROM view_productos_mas_vendidos WHERE ranking <= $1', [5]);
  */
-export async function query<T = unknown>(
+export async function query<T extends QueryResultRow = any>(
   text: string,
   params?: (string | number | boolean | null)[]
 ): Promise<QueryResult<T>> {
