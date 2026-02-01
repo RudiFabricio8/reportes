@@ -1,0 +1,62 @@
+# ============================================
+# Docker Compose para PostgreSQL + Next.js
+# ============================================
+# Este archivo levanta toda la aplicación con un solo comando:
+# docker compose up --build
+# ============================================
+
+services:
+  # ============================================
+  # Servicio: PostgreSQL
+  # ============================================
+  # Base de datos donde viven las tablas y VIEWS
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres_container
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: actividad_db
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      # Datos persistentes
+      - postgres_data:/var/lib/postgresql/data
+      # Scripts SQL accesibles en /scripts (montamos como read-only)
+      - ./db:/scripts:ro
+      # Script de inicialización que corre al crear la DB
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d actividad_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # Servicio: Next.js App
+  # ============================================
+  # La aplicación web que muestra los reportes
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Conexión a la base de datos
+      # Usamos el usuario app_reader con permisos mínimos
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: actividad_db
+      POSTGRES_USER: app_reader
+      POSTGRES_PASSWORD: app_secure_password_123
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

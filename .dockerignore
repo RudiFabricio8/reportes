@@ -1,0 +1,25 @@
+# Ignorar node_modules
+node_modules
+npm-debug.log
+
+# Ignorar archivos de build
+.next
+out
+
+# Ignorar archivos de git
+.git
+.gitignore
+
+# Ignorar archivos de Docker
+Dockerfile*
+docker-compose*
+
+# Ignorar archivos de desarrollo
+*.md
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignorar directorio db (se monta como volumen)
+# db/
