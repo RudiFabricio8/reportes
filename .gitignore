@@ -1,0 +1,32 @@
+# Archivos generados
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Archivos de sistema
+.DS_Store
+*.pem
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env locales (las de producción van en docker-compose)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Datos de PostgreSQL (están en volume de Docker)
+postgres_data/
